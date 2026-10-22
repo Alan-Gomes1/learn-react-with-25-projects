@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 export default function RandomColor() {
   const [typeOfColor, setTypeOfColor] = useState("hex");
@@ -32,15 +32,25 @@ export default function RandomColor() {
 
   return (
     <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: color,
-      }}
+      style={
+        { "--bg-color": color } as CSSProperties & { "--bg-color": string }
+      }
+      className="w-screen h-screen bg-(--bg-color) pt-6"
     >
-      <button onClick={() => setTypeOfColor("hex")}>Create HEX Color</button>
-      <button onClick={() => setTypeOfColor("rgb")}>Create RGB Color</button>
       <button
+        className="cursor-pointer text-slate-900 bg-slate-200 ml-3 p-2 rounded-md"
+        onClick={() => setTypeOfColor("hex")}
+      >
+        Create HEX Color
+      </button>
+      <button
+        className="cursor-pointer text-slate-900 bg-slate-200 ml-3 p-2 rounded-md"
+        onClick={() => setTypeOfColor("rgb")}
+      >
+        Create RGB Color
+      </button>
+      <button
+        className="cursor-pointer text-slate-900 bg-slate-200 ml-3 p-2 rounded-md"
         onClick={
           typeOfColor === "hex"
             ? handleCreateRandomHexColor
@@ -50,16 +60,8 @@ export default function RandomColor() {
         Generate Random Color
       </button>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "#fff",
-          fontSize: "60px",
-          marginTop: "50px",
-          flexDirection: "column",
-          gap: "20px",
-        }}
+        className="flex flex-col justify-center items-center h-full text-white
+        text-6xl gap-5"
       >
         <h3>{typeOfColor === "rgb" ? "RGB Color" : "HEX Color"}</h3>
         <h1>{color}</h1>
